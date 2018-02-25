@@ -1,0 +1,41 @@
+.watch-box {
+  display: block;
+  height: 300px;
+  width: 300px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+.watch-box .watch-container {
+  padding: 20px;
+  font-family: system-ui;
+}
+
+.watch-box .actions-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.watch-box .actions-container button {
+  border-width: 0;
+  padding: 10px;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  background-color: #333;
+  color: #ecf0f1;
+  cursor: pointer;
+}
+
+.watch-box .actions-container button:hover {
+  background-color: #555;
+}
+
+.watch-box .actions-container button[disabled] {
+  background-color: #dcdcdc;
+  color: black;
+  opacity: 0.3;
+  cursor: not-allowed;
+}

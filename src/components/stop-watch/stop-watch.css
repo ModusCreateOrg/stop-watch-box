@@ -1,0 +1,51 @@
+.watch-wrapper {
+  background: #2196F3;
+  padding: 20px;
+  display: block;
+  font-family: monospace;
+  box-shadow: 0 16px 16px 0 rgba(0,0,0,0.1);
+}
+
+.watch{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  z-index: 2;
+}
+
+.watch .unit, .watch .sep{
+  font-size: 32px;
+  color: #FFEB3B;
+}
+
+
+/*
+
+  STUNNING HOVER EFFECTS
+  Took from this GREAT article:
+  https://blog.prototypr.io/stunning-hover-effects-with-css-variables-f855e7b95330
+*/
+
+.watch-wrapper.apply-hover {
+  position: relative;
+  outline: none;
+  overflow: hidden;
+}
+
+.watch-wrapper.apply-hover::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, #fef101, transparent);
+  transform: translate(-50%, -50%);
+  transition: width .2s ease, height .2s ease;
+}
+
+.watch-wrapper.apply-hover:hover::before {
+  --size: 400px;
+}
