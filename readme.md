@@ -26,8 +26,8 @@ See the demo [here](https://ahsanayaz.github.io/stop-watch-box/)
 - Then you can use the element anywhere in your template, JSX, html etc
 
 ### In a stencil-starter app
-- Run `npm install my-component --save`
-- Add `{ name: 'my-component' }` to your [collections](https://github.com/ionic-team/stencil-starter/blob/master/stencil.config.js#L5)
+- Run `npm install stop-watch-box --save`
+- Add `{ name: 'stop-watch-box' }` to your [collections](https://github.com/ionic-team/stencil-starter/blob/master/stencil.config.js#L5)
 - Then you can use the element anywhere in your template, JSX, html etc
 
 
