@@ -9,6 +9,10 @@ A simple `stop-watch-box` web component built with [StencilJS](https://stenciljs
 Here's the article that I wrote about creating web components wiht Stencil. This repository is just a demo component created.
 You can use it in your projects however ;)
 
+## DEMO
+
+See the demo [here](https://ahsanayaz.github.io/stop-watch-box/)
+
 ## Using this component
 
 ### Script tag
