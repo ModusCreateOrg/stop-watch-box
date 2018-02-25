@@ -1,0 +1,15 @@
+{
+  "namespace": "stopwatchbox",
+  "fsNamespace": "stopwatchbox",
+  "loader": "../stopwatchbox.js",
+  "core": "stopwatchbox.5ac9z1fx.js",
+  "corePolyfilled": "stopwatchbox.6jj17ql2.js",
+  "components": {
+    "stop-watch": {
+      "$": "mbcice7o"
+    },
+    "stop-watch-box": {
+      "$": "mbcice7o"
+    }
+  }
+}
