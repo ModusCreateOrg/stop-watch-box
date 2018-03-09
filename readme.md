@@ -6,7 +6,7 @@ A simple `stop-watch-box` web component built with [StencilJS](https://stenciljs
 
 [stencil-component-starter](https://github.com/ionic-team/stencil-component-starter) was used to create this component.
 
-Here's the article that I wrote about creating web components wiht Stencil. This repository is just a demo component created.
+Here's the article that I wrote about creating web components with Stencil. This repository is just a demo component created.
 You can use it in your projects however ;)
 
 ## DEMO
