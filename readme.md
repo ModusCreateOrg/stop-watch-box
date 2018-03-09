@@ -11,7 +11,7 @@ You can use it in your projects however ;)
 
 ## DEMO
 
-See the demo [here](https://ahsanayaz.github.io/stop-watch-box/)
+See the demo [here](http://labs.moduscreate.com/stop-watch-box/)
 
 ## Using this component
 
