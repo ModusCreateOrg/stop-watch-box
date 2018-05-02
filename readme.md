@@ -46,7 +46,7 @@ See the demo [here](http://labs.moduscreate.com/stop-watch-box/)
 
 [Modus Create](https://moduscreate.com) is a digital product consultancy. We use a distributed team of the best talent in the world to offer a full suite of digital product design-build services; ranging from consumer facing apps, to digital migration, to agile development training, and business transformation.
 
-[![Modus Create](./images/modus.logo.svg)](https://moduscreate.com)
+[![Modus Create](./modus.logo.svg)](https://moduscreate.com)
 
 ## Licensing
 
