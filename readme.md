@@ -50,6 +50,4 @@ See the demo [here](http://labs.moduscreate.com/stop-watch-box/)
 
 ## Licensing
 
-State what the license is and how to find the text version of the license.
-
-e.g. This project is [MIT licensed](./LICENSE).
+This project is [MIT licensed](./LICENSE).
