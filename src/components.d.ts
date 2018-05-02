@@ -4,75 +4,95 @@
  * and imports for stencil collections that might be configured in your stencil.config.js file
  */
 
+import '@stencil/core';
 
 declare global {
+  namespace JSX {
+    interface Element {}
+    export interface IntrinsicElements {}
+  }
+  namespace JSXElements {}
+
   interface HTMLStencilElement extends HTMLElement {
     componentOnReady(): Promise<this>;
     componentOnReady(done: (ele?: this) => void): void;
+
+    forceUpdate(): void;
   }
+
+  interface HTMLAttributes {}
 }
 
 
-
-import {
-  StopWatchBoxComponent as StopWatchBox
-} from './components/stop-watch-box/stop-watch-box';
-
 declare global {
-  interface HTMLStopWatchBoxElement extends StopWatchBox, HTMLStencilElement {
+
+  namespace StencilComponents {
+    interface StopWatchBox {
+      'applyHover': boolean;
+    }
   }
+
+  interface HTMLStopWatchBoxElement extends StencilComponents.StopWatchBox, HTMLStencilElement {}
+
   var HTMLStopWatchBoxElement: {
     prototype: HTMLStopWatchBoxElement;
     new (): HTMLStopWatchBoxElement;
   };
   interface HTMLElementTagNameMap {
-    "stop-watch-box": HTMLStopWatchBoxElement;
+    'stop-watch-box': HTMLStopWatchBoxElement;
   }
   interface ElementTagNameMap {
-    "stop-watch-box": HTMLStopWatchBoxElement;
+    'stop-watch-box': HTMLStopWatchBoxElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "stop-watch-box": JSXElements.StopWatchBoxAttributes;
+      'stop-watch-box': JSXElements.StopWatchBoxAttributes;
     }
   }
   namespace JSXElements {
     export interface StopWatchBoxAttributes extends HTMLAttributes {
-      applyHover?: boolean;
+      'applyHover'?: boolean;
     }
   }
 }
 
 
-import {
-  StopWatchComponent as StopWatch
-} from './components/stop-watch/stop-watch';
-
 declare global {
-  interface HTMLStopWatchElement extends StopWatch, HTMLStencilElement {
+
+  namespace StencilComponents {
+    interface StopWatch {
+      'applyHover': boolean;
+      'hours': string;
+      'milliseconds': string;
+      'minutes': string;
+      'seconds': string;
+    }
   }
+
+  interface HTMLStopWatchElement extends StencilComponents.StopWatch, HTMLStencilElement {}
+
   var HTMLStopWatchElement: {
     prototype: HTMLStopWatchElement;
     new (): HTMLStopWatchElement;
   };
   interface HTMLElementTagNameMap {
-    "stop-watch": HTMLStopWatchElement;
+    'stop-watch': HTMLStopWatchElement;
   }
   interface ElementTagNameMap {
-    "stop-watch": HTMLStopWatchElement;
+    'stop-watch': HTMLStopWatchElement;
   }
   namespace JSX {
     interface IntrinsicElements {
-      "stop-watch": JSXElements.StopWatchAttributes;
+      'stop-watch': JSXElements.StopWatchAttributes;
     }
   }
   namespace JSXElements {
     export interface StopWatchAttributes extends HTMLAttributes {
-      applyHover?: boolean;
-      hours?: string;
-      milliseconds?: string;
-      minutes?: string;
-      seconds?: string;
+      'applyHover'?: boolean;
+      'hours'?: string;
+      'milliseconds'?: string;
+      'minutes'?: string;
+      'seconds'?: string;
     }
   }
 }

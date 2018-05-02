@@ -41,3 +41,13 @@ See the demo [here](http://labs.moduscreate.com/stop-watch-box/)
   <stop-watch-box apply-hover="true"></stop-watch-box>
 </body>
 ```
+
+## Modus Create
+
+[Modus Create](https://moduscreate.com) is a digital product consultancy. We use a distributed team of the best talent in the world to offer a full suite of digital product design-build services; ranging from consumer facing apps, to digital migration, to agile development training, and business transformation.
+
+[![Modus Create](./modus.logo.svg)](https://moduscreate.com)
+
+## Licensing
+
+This project is [MIT licensed](./LICENSE).
