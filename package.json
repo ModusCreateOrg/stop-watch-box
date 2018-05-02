@@ -27,14 +27,20 @@
     "@types/jest": "22.2.3",
     "jest": "22.4.3"
   },
+  "resolutions": {
+    "semver": "^4.3.2"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AhsanAyaz/stop-watch-box"
+    "url": "git+https://github.com/ModusCreateOrg/stop-watch-box"
   },
-  "author": "Ionic Team",
+  "author": "Modus Create <opensource@moduscreate.com>",
+  "contributors": [
+    "Ahsan Ayaz <ahsan.ayaz@moduscreate.com"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AhsanAyaz/stop-watch-box/issues"
+    "url": "https://github.com/ModusCreateOrg/stop-watch-box/issues"
   },
   "homepage": "httpsstop-watch-box",
   "jest": {
