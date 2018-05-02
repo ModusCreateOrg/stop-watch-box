@@ -19,13 +19,13 @@
     "prepublish": "npm run build"
   },
   "dependencies": {
-    "@stencil/core": "^0.6.1"
+    "@stencil/core": "~0.8.0"
   },
   "devDependencies": {
-    "@stencil/dev-server": "latest",
-    "@stencil/utils": "latest",
-    "@types/jest": "^21.1.1",
-    "jest": "^21.2.1"
+    "@stencil/dev-server": "0.0.18",
+    "@stencil/utils": "0.0.4",
+    "@types/jest": "22.2.3",
+    "jest": "22.4.3"
   },
   "repository": {
     "type": "git",
