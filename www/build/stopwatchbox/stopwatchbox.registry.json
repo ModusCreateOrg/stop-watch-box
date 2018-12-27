@@ -3,14 +3,17 @@
   "fsNamespace": "stopwatchbox",
   "loader": "../stopwatchbox.js",
   "corePolyfilled": "es5-build-disabled.js",
-  "global": "stopwatchbox.global.js",
   "core": "stopwatchbox.core.js",
   "components": {
     "stop-watch": {
-      "$": "stop-watch"
+      "bundleIds": {
+        "$": "stop-watch"
+      }
     },
     "stop-watch-box": {
-      "$": "stop-watch"
+      "bundleIds": {
+        "$": "stop-watch"
+      }
     }
   }
 }

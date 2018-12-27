@@ -1,55 +1,20 @@
-/*! Built with http://stenciljs.com */
+
 (function(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCoreSsr, appCorePolyfilled, hydratedCssClass, components) {
 
-    function init(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCorePolyfilled, hydratedCssClass, components, HTMLElementPrototype, App, x, y, scriptElm, orgComponentOnReady) {
+  function init(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCorePolyfilled, hydratedCssClass, cmpTags, HTMLElementPrototype, App, x, y, scriptElm) {
     // create global namespace if it doesn't already exist
     App = win[namespace] = win[namespace] || {};
-    App.components = components;
-    y = components.filter(function (c) { return c[2]; }).map(function (c) { return c[0]; });
-    if (y.length) {
+    if (cmpTags) {
         // auto hide components until they been fully hydrated
         // reusing the "x" and "i" variables from the args for funzies
         x = doc.createElement('style');
-        x.innerHTML = y.join() + '{visibility:hidden}.' + hydratedCssClass + '{visibility:inherit}';
+        x.innerHTML = cmpTags + '{visibility:hidden}.' + hydratedCssClass + '{visibility:inherit}';
         x.setAttribute('data-styles', '');
-        doc.head.insertBefore(x, doc.head.firstChild);
+        y = doc.head.querySelector('meta[charset]');
+        doc.head.insertBefore(x, y ? y.nextSibling : doc.head.firstChild);
     }
-    // create a temporary array to store the resolves
-    // before the core file has fully loaded
-    App.$r = [];
-    // add componentOnReady to HTMLElement.prototype
-    orgComponentOnReady = HTMLElementPrototype.componentOnReady;
-    HTMLElementPrototype.componentOnReady = function componentOnReady(cb) {
-        const elm = this;
-        // there may be more than one app on the window so
-        // call original HTMLElement.prototype.componentOnReady
-        // if one exists already
-        orgComponentOnReady && orgComponentOnReady.call(elm);
-        function executor(resolve) {
-            if (App.$r) {
-                // core file hasn't loaded yet
-                // so let's throw it in this temporary queue
-                // and when the core does load it'll handle these
-                App.$r.push([elm, resolve]);
-            }
-            else {
-                // core has finished loading because there's no temporary queue
-                // call the core's logic to handle this
-                App.componentOnReady(elm, resolve);
-            }
-        }
-        if (cb) {
-            // just a callback
-            return executor(cb);
-        }
-        // callback wasn't provided, let's return a promise
-        if (win.Promise) {
-            // use native/polyfilled promise
-            return new Promise(executor);
-        }
-        // promise may not have been polyfilled yet
-        return { then: executor };
-    };
+    createComponentOnReadyPrototype(win, namespace, HTMLElementPrototype);
+    resourcesUrl = resourcesUrl || App.resourcesUrl;
     // figure out the script element for this current script
     y = doc.querySelectorAll('script');
     for (x = y.length - 1; x >= 0; x--) {
@@ -60,7 +25,7 @@
     }
     // get the resource path attribute on this script element
     y = scriptElm.getAttribute('data-resources-url');
-    if (y) {
+    if (!resourcesUrl && y) {
         // the script element has a data-resources-url attribute, always use that
         resourcesUrl = y;
     }
@@ -116,8 +81,54 @@ function doesNotSupportsDynamicImports(dynamicImportTest) {
     catch (e) { }
     return true;
 }
+function createComponentOnReadyPrototype(win, namespace, HTMLElementPrototype) {
+    (win['s-apps'] = win['s-apps'] || []).push(namespace);
+    if (!HTMLElementPrototype.componentOnReady) {
+        HTMLElementPrototype.componentOnReady = function componentOnReady() {
+            /*tslint:disable*/
+            var elm = this;
+            function executor(resolve) {
+                if (elm.nodeName.indexOf('-') > 0) {
+                    // window hasn't loaded yet and there's a
+                    // good chance this is a custom element
+                    var apps = win['s-apps'];
+                    var appsReady = 0;
+                    // loop through all the app namespaces
+                    for (var i = 0; i < apps.length; i++) {
+                        // see if this app has "componentOnReady" setup
+                        if (win[apps[i]].componentOnReady) {
+                            // this app's core has loaded call its "componentOnReady"
+                            if (win[apps[i]].componentOnReady(elm, resolve)) {
+                                // this component does belong to this app and would
+                                // have fired off the resolve fn
+                                // let's stop here, we're good
+                                return;
+                            }
+                            appsReady++;
+                        }
+                    }
+                    if (appsReady < apps.length) {
+                        // not all apps are ready yet
+                        // add it to the queue to be figured out when they are
+                        (win['s-cr'] = win['s-cr'] || []).push([elm, resolve]);
+                        return;
+                    }
+                }
+                // not a recognized app component
+                resolve(null);
+            }
+            // callback wasn't provided, let's return a promise
+            if (win.Promise) {
+                // use native/polyfilled promise
+                return new win.Promise(executor);
+            }
+            // promise may not have been polyfilled yet
+            return { then: executor };
+        };
+    }
+}
 
 
-    init(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCoreSsr, appCorePolyfilled, hydratedCssClass, components);
+  init(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCoreSsr, appCorePolyfilled, hydratedCssClass, components);
 
-    })(window, document, "stopwatchbox","stopwatchbox",0,"stopwatchbox.core.js","es5-build-disabled.js","hydrated",[["stop-watch","stop-watch",1,[["applyHover",1,0,"apply-hover",3],["hours",1,0,1,2],["milliseconds",1,0,1,2],["minutes",1,0,1,2],["seconds",1,0,1,2]]],["stop-watch-box","stop-watch",1,[["applyHover",1,0,"apply-hover",3],["hours",5],["isTimerRunning",5],["milliseconds",5],["minutes",5],["seconds",5]]]],HTMLElement.prototype);
+  })(window, document, "stopwatchbox","stopwatchbox",0,"stopwatchbox.core.js","es5-build-disabled.js","hydrated","stop-watch,stop-watch-box",HTMLElement.prototype);
