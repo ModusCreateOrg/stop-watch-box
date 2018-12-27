@@ -2,15 +2,15 @@
   "namespace": "stopwatchbox",
   "fsNamespace": "stopwatchbox",
   "loader": "../stopwatchbox.js",
+  "corePolyfilled": "es5-build-disabled.js",
   "global": "stopwatchbox.global.js",
-  "core": "stopwatchbox.m6httphj.js",
-  "corePolyfilled": "stopwatchbox.l1kjcajt.js",
+  "core": "stopwatchbox.core.js",
   "components": {
     "stop-watch": {
-      "$": "cjugfnfh"
+      "$": "stop-watch"
     },
     "stop-watch-box": {
-      "$": "cjugfnfh"
+      "$": "stop-watch"
     }
   }
 }
