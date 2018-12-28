@@ -1,59 +1,36 @@
 {
   "name": "stop-watch-box",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A simple Stop-Watch-Box Web Component created with Stencil",
-  "main": "dist/stopwatchbox.js",
-  "types": "dist/types/index.d.ts",
+  "module": "dist/esm/index.js",
+  "main": "dist/index.js",
+  "unpkg": "dist/ionic.js",
+  "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "files": [
     "dist/"
   ],
-  "browser": "dist/stopwatchbox.js",
   "scripts": {
-    "build": "stencil build",
-    "dev": "sd concurrent \"stencil build --dev --watch\" \"stencil-dev-server\" ",
-    "serve": "stencil-dev-server",
-    "start": "npm run dev",
-    "test": "jest --no-cache",
-    "test.watch": "jest --watch --no-cache",
-    "prepublish": "npm run build"
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll"
   },
-  "dependencies": {
-    "@stencil/core": "~0.8.0"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@stencil/dev-server": "0.0.18",
-    "@stencil/utils": "0.0.4",
-    "@types/jest": "22.2.3",
-    "jest": "22.4.3"
+    "@stencil/core": "0.16.1"
   },
-  "resolutions": {
-    "semver": "^4.3.2"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ModusCreateOrg/stop-watch-box"
-  },
+  "license": "MIT",
   "author": "Modus Create <opensource@moduscreate.com>",
   "contributors": [
     "Ahsan Ayaz <ahsan.ayaz@moduscreate.com"
   ],
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ModusCreateOrg/stop-watch-box/issues"
   },
-  "homepage": "httpsstop-watch-box",
-  "jest": {
-    "transform": {
-      "^.+\\.(ts|tsx)$": "<rootDir>/node_modules/@stencil/core/testing/jest.preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(tsx?|jsx?)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js",
-      "json",
-      "jsx"
-    ]
+  "homepage": "https://stopwatchbox.modus.app/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ModusCreateOrg/stop-watch-box"
   }
 }
