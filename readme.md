@@ -12,7 +12,7 @@ You can use it in your projects however ;)
 
 ## DEMO
 
-See the demo [here](http://labs.moduscreate.com/stop-watch-box/)
+See the demo [here](https://stopwatchbox.modus.app/)
 
 ## Using this component
 
@@ -52,5 +52,4 @@ See the demo [here](http://labs.moduscreate.com/stop-watch-box/)
 ## Licensing
 
 This project is [MIT licensed](./LICENSE).
-
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FModusCreateOrg%2Fstop-watch-box.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FModusCreateOrg%2Fstop-watch-box?ref=badge_large)

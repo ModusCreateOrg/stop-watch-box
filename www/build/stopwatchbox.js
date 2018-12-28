@@ -1,2 +1,134 @@
-/*! Built with http://stenciljs.com */
-!function(t,e,o,n,r,s,i,c,a,u,l,p,h,d,m){for((l=t.stopwatchbox=t.stopwatchbox||{}).components=a,(h=a.filter(function(t){return t[2]}).map(function(t){return t[0]})).length&&((p=e.createElement("style")).innerHTML=h.join()+"{visibility:hidden}.hydrated{visibility:inherit}",p.setAttribute("data-styles",""),e.head.insertBefore(p,e.head.firstChild)),l.$r=[],m=u.componentOnReady,u.componentOnReady=function(e){const o=this;function n(t){l.$r?l.$r.push([o,t]):l.componentOnReady(o,t)}return m&&m.call(o),e?n(e):t.Promise?new Promise(n):{then:n}},p=(h=e.querySelectorAll("script")).length-1;p>=0&&!(d=h[p]).src&&!d.hasAttribute("data-resources-url");p--);(h=d.getAttribute("data-resources-url"))&&(r=h),!r&&d.src&&(r=(h=d.src.split("/").slice(0,-1)).join("/")+(h.length?"/":"")+"stopwatchbox/"),p=e.createElement("script"),function(t,e,o,n){return!(e.search.indexOf("core=esm")>0)&&(!(!(e.search.indexOf("core=es5")>0||"file:"===e.protocol)&&t.customElements&&t.customElements.define&&t.fetch&&t.CSS&&t.CSS.supports&&t.CSS.supports("color","var(--c)")&&"noModule"in o)||function(t){try{return new Function('import("")'),!1}catch(t){}return!0}())}(t,t.location,p)?p.src=r+"stopwatchbox.l1kjcajt.js":(p.src=r+"stopwatchbox.m6httphj.js",p.setAttribute("type","module"),p.setAttribute("crossorigin",!0)),p.setAttribute("data-resources-url",r),p.setAttribute("data-namespace","stopwatchbox"),e.head.appendChild(p)}(window,document,0,0,0,0,0,0,[["stop-watch","cjugfnfh",1,[["applyHover",1,0,"apply-hover",3],["hours",1,0,1,2],["milliseconds",1,0,1,2],["minutes",1,0,1,2],["seconds",1,0,1,2]]],["stop-watch-box","cjugfnfh",1,[["applyHover",1,0,"apply-hover",3],["hours",5],["isTimerRunning",5],["milliseconds",5],["minutes",5],["seconds",5]]]],HTMLElement.prototype);
+
+(function(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCoreSsr, appCorePolyfilled, hydratedCssClass, components) {
+
+  function init(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCorePolyfilled, hydratedCssClass, cmpTags, HTMLElementPrototype, App, x, y, scriptElm) {
+    // create global namespace if it doesn't already exist
+    App = win[namespace] = win[namespace] || {};
+    if (cmpTags) {
+        // auto hide components until they been fully hydrated
+        // reusing the "x" and "i" variables from the args for funzies
+        x = doc.createElement('style');
+        x.innerHTML = cmpTags + '{visibility:hidden}.' + hydratedCssClass + '{visibility:inherit}';
+        x.setAttribute('data-styles', '');
+        y = doc.head.querySelector('meta[charset]');
+        doc.head.insertBefore(x, y ? y.nextSibling : doc.head.firstChild);
+    }
+    createComponentOnReadyPrototype(win, namespace, HTMLElementPrototype);
+    resourcesUrl = resourcesUrl || App.resourcesUrl;
+    // figure out the script element for this current script
+    y = doc.querySelectorAll('script');
+    for (x = y.length - 1; x >= 0; x--) {
+        scriptElm = y[x];
+        if (scriptElm.src || scriptElm.hasAttribute('data-resources-url')) {
+            break;
+        }
+    }
+    // get the resource path attribute on this script element
+    y = scriptElm.getAttribute('data-resources-url');
+    if (!resourcesUrl && y) {
+        // the script element has a data-resources-url attribute, always use that
+        resourcesUrl = y;
+    }
+    if (!resourcesUrl && scriptElm.src) {
+        // we don't have an exact resourcesUrl, so let's
+        // figure it out relative to this script's src and app's filesystem namespace
+        y = scriptElm.src.split('/').slice(0, -1);
+        resourcesUrl = (y.join('/')) + (y.length ? '/' : '') + fsNamespace + '/';
+    }
+    // request the core this browser needs
+    // test for native support of custom elements and fetch
+    // if either of those are not supported, then use the core w/ polyfills
+    // also check if the page was build with ssr or not
+    x = doc.createElement('script');
+    if (usePolyfills(win, win.location, x, 'import("")')) {
+        // requires the es5/polyfilled core
+        x.src = resourcesUrl + appCorePolyfilled;
+    }
+    else {
+        // let's do this!
+        x.src = resourcesUrl + appCore;
+        x.setAttribute('type', 'module');
+        x.setAttribute('crossorigin', true);
+    }
+    x.setAttribute('data-resources-url', resourcesUrl);
+    x.setAttribute('data-namespace', fsNamespace);
+    doc.head.appendChild(x);
+}
+function usePolyfills(win, location, scriptElm, dynamicImportTest) {
+    // fyi, dev mode has verbose if/return statements
+    // but it minifies to a nice 'lil one-liner ;)
+    if (location.search.indexOf('core=esm') > 0) {
+        // force esm build
+        return false;
+    }
+    if ((location.search.indexOf('core=es5') > 0) ||
+        (location.protocol === 'file:') ||
+        (!(win.customElements && win.customElements.define)) ||
+        (!win.fetch) ||
+        (!(win.CSS && win.CSS.supports && win.CSS.supports('color', 'var(--c)'))) ||
+        (!('noModule' in scriptElm))) {
+        // es5 build w/ polyfills
+        return true;
+    }
+    // final test to see if this browser support dynamic imports
+    return doesNotSupportsDynamicImports(dynamicImportTest);
+}
+function doesNotSupportsDynamicImports(dynamicImportTest) {
+    try {
+        new Function(dynamicImportTest);
+        return false;
+    }
+    catch (e) { }
+    return true;
+}
+function createComponentOnReadyPrototype(win, namespace, HTMLElementPrototype) {
+    (win['s-apps'] = win['s-apps'] || []).push(namespace);
+    if (!HTMLElementPrototype.componentOnReady) {
+        HTMLElementPrototype.componentOnReady = function componentOnReady() {
+            /*tslint:disable*/
+            var elm = this;
+            function executor(resolve) {
+                if (elm.nodeName.indexOf('-') > 0) {
+                    // window hasn't loaded yet and there's a
+                    // good chance this is a custom element
+                    var apps = win['s-apps'];
+                    var appsReady = 0;
+                    // loop through all the app namespaces
+                    for (var i = 0; i < apps.length; i++) {
+                        // see if this app has "componentOnReady" setup
+                        if (win[apps[i]].componentOnReady) {
+                            // this app's core has loaded call its "componentOnReady"
+                            if (win[apps[i]].componentOnReady(elm, resolve)) {
+                                // this component does belong to this app and would
+                                // have fired off the resolve fn
+                                // let's stop here, we're good
+                                return;
+                            }
+                            appsReady++;
+                        }
+                    }
+                    if (appsReady < apps.length) {
+                        // not all apps are ready yet
+                        // add it to the queue to be figured out when they are
+                        (win['s-cr'] = win['s-cr'] || []).push([elm, resolve]);
+                        return;
+                    }
+                }
+                // not a recognized app component
+                resolve(null);
+            }
+            // callback wasn't provided, let's return a promise
+            if (win.Promise) {
+                // use native/polyfilled promise
+                return new win.Promise(executor);
+            }
+            // promise may not have been polyfilled yet
+            return { then: executor };
+        };
+    }
+}
+
+
+  init(win, doc, namespace, fsNamespace, resourcesUrl, appCore, appCoreSsr, appCorePolyfilled, hydratedCssClass, components);
+
+  })(window, document, "stopwatchbox","stopwatchbox",0,"stopwatchbox.core.js","es5-build-disabled.js","hydrated","stop-watch,stop-watch-box",HTMLElement.prototype);
