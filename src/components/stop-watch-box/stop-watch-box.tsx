@@ -1,4 +1,4 @@
-import { Component, State, Prop } from "@stencil/core";
+import { h, Component, State, Prop } from "@stencil/core";
 import { WatchService } from "../../services/watch-service";
 
 @Component({
