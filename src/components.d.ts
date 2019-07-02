@@ -5,20 +5,10 @@
  */
 
 
-import '@stencil/core';
-
-
+import { HTMLStencilElement, JSXBase } from '@stencil/core/internal';
 
 
 export namespace Components {
-
-  interface StopWatchBox {
-    'applyHover': boolean;
-  }
-  interface StopWatchBoxAttributes extends StencilHTMLAttributes {
-    'applyHover'?: boolean;
-  }
-
   interface StopWatch {
     'applyHover': boolean;
     'hours': string;
@@ -26,32 +16,13 @@ export namespace Components {
     'minutes': string;
     'seconds': string;
   }
-  interface StopWatchAttributes extends StencilHTMLAttributes {
-    'applyHover'?: boolean;
-    'hours'?: string;
-    'milliseconds'?: string;
-    'minutes'?: string;
-    'seconds'?: string;
+  interface StopWatchBox {
+    'applyHover': boolean;
   }
 }
 
 declare global {
-  interface StencilElementInterfaces {
-    'StopWatchBox': Components.StopWatchBox;
-    'StopWatch': Components.StopWatch;
-  }
 
-  interface StencilIntrinsicElements {
-    'stop-watch-box': Components.StopWatchBoxAttributes;
-    'stop-watch': Components.StopWatchAttributes;
-  }
-
-
-  interface HTMLStopWatchBoxElement extends Components.StopWatchBox, HTMLStencilElement {}
-  var HTMLStopWatchBoxElement: {
-    prototype: HTMLStopWatchBoxElement;
-    new (): HTMLStopWatchBoxElement;
-  };
 
   interface HTMLStopWatchElement extends Components.StopWatch, HTMLStencilElement {}
   var HTMLStopWatchElement: {
@@ -59,23 +30,42 @@ declare global {
     new (): HTMLStopWatchElement;
   };
 
+  interface HTMLStopWatchBoxElement extends Components.StopWatchBox, HTMLStencilElement {}
+  var HTMLStopWatchBoxElement: {
+    prototype: HTMLStopWatchBoxElement;
+    new (): HTMLStopWatchBoxElement;
+  };
   interface HTMLElementTagNameMap {
-    'stop-watch-box': HTMLStopWatchBoxElement
-    'stop-watch': HTMLStopWatchElement
-  }
-
-  interface ElementTagNameMap {
-    'stop-watch-box': HTMLStopWatchBoxElement;
     'stop-watch': HTMLStopWatchElement;
+    'stop-watch-box': HTMLStopWatchBoxElement;
   }
-
-
-  export namespace JSX {
-    export interface Element {}
-    export interface IntrinsicElements extends StencilIntrinsicElements {
-      [tagName: string]: any;
-    }
-  }
-  export interface HTMLAttributes extends StencilHTMLAttributes {}
-
 }
+
+declare namespace LocalJSX {
+  interface StopWatch extends JSXBase.HTMLAttributes<HTMLStopWatchElement> {
+    'applyHover'?: boolean;
+    'hours'?: string;
+    'milliseconds'?: string;
+    'minutes'?: string;
+    'seconds'?: string;
+  }
+  interface StopWatchBox extends JSXBase.HTMLAttributes<HTMLStopWatchBoxElement> {
+    'applyHover'?: boolean;
+  }
+
+  interface IntrinsicElements {
+    'stop-watch': StopWatch;
+    'stop-watch-box': StopWatchBox;
+  }
+}
+
+export { LocalJSX as JSX };
+
+
+declare module "@stencil/core" {
+  export namespace JSX {
+    interface IntrinsicElements extends LocalJSX.IntrinsicElements {}
+  }
+}
+
+
